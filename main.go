@@ -194,7 +194,7 @@ func main() {
 
 			fmt.Println("医院名: " + detail.Cname + "  电话: " + detail.Tel)
 			for _, info := range detail.List {
-				if strings.ContainsAny(info.Text, "九价") {
+				if strings.Contains(info.Text, "九价") {
 					fmt.Println(info.Text + ": " + info.BtnLable)
 					if info.Enable {
 						SendWechatMsg(detail.Cname, detail.Tel, detail.Addr, info.Text, info.BtnLable)
