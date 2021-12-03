@@ -156,7 +156,7 @@ func SendWechatMsg(hospitalName, tel, addr, title, btnLabel string) error {
 	return nil
 }
 
-var hospitalInfo = atomic.Value{}
+var hospitalInfo atomic.Value
 
 func main() {
 	go func() {
@@ -174,14 +174,14 @@ func main() {
 				os.Exit(-1)
 			}
 			hospitalInfo.Store(h)
-			<-time.Tick(5 * time.Second) //每五秒刷新一次
+			time.Sleep(5 * time.Second) //每五秒刷新一次
 		}
 	}()
 
 	for {
 		h, ok := hospitalInfo.Load().(*HospitalResp)
 		if !ok {
-			time.Tick(5 * time.Second)
+			time.Sleep(5 * time.Second)
 			continue
 		}
 		for _, list := range h.List {
